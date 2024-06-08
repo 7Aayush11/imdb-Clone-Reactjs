@@ -1,44 +1,51 @@
 import React, { useState, useEffect } from 'react'
 import MovieItem from './MovieItem'
 
-const Home = () => {
+const Series = () => {
 
     const [item, setItem] = useState([]);
     const apikey = "40713c4b";
     const itemsPerPage = 4;
-    const titleList = ["The Shawshank Redemption",
-        "The Godfather",
-        "The Dark Knight",
-        "The Godfather: Part II",
-        "12 Angry men",
-        "Schindler's List",
-        "The Lord of the Rings: The Return of the King",
-        "Pulp Fiction",
-        "The Good, the Bad and the Ugly",
-        "Fight Club",
-        "Forrest Gump",
-        "Inception",
-        "Star Wars: Episode V - The Empire Strikes Back",
-        "The Lord of the Rings: The Fellowship of the Ring",
-        "The Matrix", "Star Wars: Episode IV - A New Hope",
+    const titleList = [
+        "Breaking Bad",
+        "Game of Thrones",
+        "The Wire",
+        "Sherlock",
+        "The Sopranos",
+        "Arrested Development",
+        "Firefly",
+        "Dexter",
+        // "Avatar: The Last Airbender",
+        // "The Simpsons",
+        // "Monty Python’s Flying Circus",
+        // "Rome",
+        // "Freaks and Geeks",
+        // "Twin Peaks",
+        // "The Twilight Zone",
+        // "Death Note",
+        // "Oz",
+        // "Seinfeld",
+        // "Leyla ile Mecnun",
+        // "House M.D."
     ];
+    
     //eslint-disable-next-line
-    const fetchMovie = async () => {
-
+    const fetchSeries = async () => {
         const promises = titleList.map(title => {
             const url = `https://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
             return fetch(url).then(response => response.json());
         });
         const results = await Promise.all(promises);
         setItem(results);
+        console.log(results)
     }
 
     useEffect(() => {
-        fetchMovie();
+        fetchSeries();
         // eslint-disable-next-line
     }, []);
 
-    const slides = Array(Math.ceil(item.length / itemsPerPage)).fill().map((_, index) => {
+    const seriesSlides = Array(Math.ceil(item.length / itemsPerPage)).fill().map((_, index) => {
         const start = index * itemsPerPage;
         const end = start + itemsPerPage;
         return item.slice(start, end);
@@ -47,10 +54,10 @@ const Home = () => {
     return (
         <div>
             <div className="container text-start" style={{ marginTop: "50px" }}>
-                <h4 style={{ margin: "15px 40px", color: 'white', textDecoration: "underline" }}>All time popular movies</h4>
+                <h4 style={{ margin: "15px 40px", color: 'white', textDecoration: "underline" }}>All time popular Series</h4>
                 <div id="carouselExample" className="carousel slide">
                     <div className="carousel-inner">
-                        {slides.map((slide, index) => (
+                        {seriesSlides.map((slide, index) => (
                             <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
                                 <div className="row">
                                     {slide.map((element) => (
@@ -62,7 +69,7 @@ const Home = () => {
                                                 Poster={element.Poster}
                                                 type={element.Type}
                                                 language={element.Language}
-                                                runtime={element.Runtime}
+                                                runtime={element.totalSeasons}
                                                 genre={element.Genre}
                                                 date={element.Released}
                                                 rating={element.imdbRating}
@@ -89,4 +96,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Series;
