@@ -45,7 +45,6 @@ const Series = () => {
         });
         const results = await Promise.all(promises);
         setItem(results);
-        console.log(results);
     }
 
     useEffect(() => {
