@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import MovieItem from './MovieItem'
+import Spinner from './Spinner';
 
 const Series = () => {
 
     const [item, setItem] = useState([]);
+    const [loading, setLoading] = useState(false);
     const apikey = "40713c4b";
     const itemsPerPage = 4;
     const titleList = [
@@ -39,12 +41,14 @@ const Series = () => {
 
     //eslint-disable-next-line
     const fetchSeries = async () => {
+        setLoading(true)
         const promises = titleList.map(title => {
             const url = `https://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
             return fetch(url).then(response => response.json());
         });
         const results = await Promise.all(promises);
         setItem(results);
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -62,6 +66,7 @@ const Series = () => {
         <div>
             <div className="container text-start" style={{ marginTop: "50px" }}>
                 <h4 style={{ margin: "15px 40px", color: 'white', textDecoration: "underline" }}>All time popular Series</h4>
+                {loading && <Spinner/>}
                 <div id="carouselSeries" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                         {seriesSlides.map((sslide, index) => (

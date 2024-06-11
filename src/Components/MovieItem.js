@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import SearchContext from '../Context/SearchContext'
 
 const MovieItem = (props) => {
+
+    const { searchContext } = SearchContext
+    const { handleTitle } = useContext(searchContext)
+
     return (
         <div>
             <div className="movie-flip-card">
@@ -17,8 +23,9 @@ const MovieItem = (props) => {
                             <p className="code">genre - {props.genre}</p>
                             <p className="code">actors - {props.actors}</p>
                             <p className="code">language - {props.language}</p>
-                            <p className="code">{props.runtime.split(" ").length>=2 ?  `runtime - ${props.runtime}`:`Total Season - ${props.runtime}`}</p>
+                            <p className="code">{props.runtime.split(" ").length >= 2 ? `runtime - ${props.runtime}` : `Total Season - ${props.runtime}`}</p>
                             <p className="code">rating - {props.rating}</p>
+                            <button className='btn' onClick={() => handleTitle(props.title)}><Link>More...</Link></button>
                         </div>
                     </div>
                 </div>
