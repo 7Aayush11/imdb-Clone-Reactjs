@@ -25,12 +25,12 @@ const MovieItem = (props) => {
                             <p className="code">language - {props.language}</p>
                             <p className="code">{props.runtime.split(" ").length >= 2 ? `runtime - ${props.runtime}` : `Total Season - ${props.runtime}`}</p>
                             <p className="code">rating - {props.rating}</p>
-                            <button className='btn' onClick={() => handleTitle(props.title)}><Link>More...</Link></button>
+                            <button className='btn' onClick={() => handleTitle(props.imdbID)}><Link>More...</Link></button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

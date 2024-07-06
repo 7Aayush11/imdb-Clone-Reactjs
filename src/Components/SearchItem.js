@@ -18,7 +18,7 @@ const SearchItem = (props) => {
               <h5 className="card-title">{props.title}</h5>
               <p className="card-text">Type: {props.type}</p>
               <p className="card-text"><small className="card-text">Year: {props.year}</small></p>
-              <button type="button" disabled={props.type==="game"} className="btn btn-outline-primary" onClick={()=>handleTitle(props.title)}>See More</button>
+              <button type="button" disabled={props.type==="game"} className="btn btn-outline-primary" onClick={()=>handleTitle(props.imdbID)}>See More</button>
             </div>
           </div>
         </div>

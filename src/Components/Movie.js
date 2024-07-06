@@ -83,6 +83,7 @@ const Movie = () => {
                                                 genre={element.Genre}
                                                 date={element.Released}
                                                 rating={element.imdbRating}
+                                                imdbID={element.imdbID}
                                             />
                                         </div>
                                     ))}

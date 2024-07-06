@@ -21,15 +21,27 @@ const Searched = () => {
   const updateContent = async () => {
     setPage(1)
     setLoading(true)
-    const url = `https://www.omdbapi.com/?s=${ele}&page=1&apikey=${apikey}`;
-    let data = await fetch(url);
-    let parsedData = await data.json()
-    console.log(parsedData);
-    setItem(parsedData)
-    setTotalResults(parsedData.totalResults)
-    // setResponse(parsedData.Response)
-    setLoading(false)
-
+    console.log(ele);
+    if (ele[1] === null) {
+      const url = `https://www.omdbapi.com/?s=${ele[0]}&page=1&apikey=${apikey}`;
+      let data = await fetch(url);
+      let parsedData = await data.json()
+      console.log(parsedData);
+      setItem(parsedData)
+      setTotalResults(parsedData.totalResults)
+      // setResponse(parsedData.Response)
+      setLoading(false)
+    }
+    else {
+      const url = `https://www.omdbapi.com/?s=${ele[0]}&type=${ele[1]}&page=1&apikey=${apikey}`;
+      let data = await fetch(url);
+      let parsedData = await data.json()
+      console.log(parsedData);
+      setItem(parsedData)
+      setTotalResults(parsedData.totalResults)
+      // setResponse(parsedData.Response)
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -40,8 +52,8 @@ const Searched = () => {
   const fetchNextData = async () => {
     setLoading(true)
     window.scrollTo(10, 10);
-    setPage(page + 1)
-    const url = `https://www.omdbapi.com/?s=${ele}&page=${page + 1}&apikey=${apikey}`;
+    setPage(page+1)
+    const url = `https://www.omdbapi.com/?s=${ele}&page=${page+1}&apikey=${apikey}`;
     let data = await fetch(url);
     let parsedData = await data.json()
     console.log(parsedData);
@@ -53,7 +65,7 @@ const Searched = () => {
     setLoading(true)
     window.scrollTo(0, 0);
     setPage(page - 1)
-    const url = `https://www.omdbapi.com/?s=${ele}&page=${page - 1}&apikey=${apikey}`;
+    const url = `https://www.omdbapi.com/?s=${ele}&page=${page-1}&apikey=${apikey}`;
     let data = await fetch(url);
     let parsedData = await data.json()
     setItem(parsedData)
@@ -63,12 +75,12 @@ const Searched = () => {
   if (item.Response === "True") {
     return (
       <div>
-        <h1 className='text-center' style={{ marginTop: '55px', color: "#dfd8d8" }}>Results for {ele}</h1>
+        <h1 className='text-center' style={{ marginTop: '55px', color: "#dfd8d8" }}>Results for {ele[0]}</h1>
         {loading && <Spinner />}
         <div className="container text-align-center" style={{ marginTop: "35px" }}>
           {item.Search.map((element) => {
             return <div className='col' key={element.imdbID}>
-              <SearchItem poster={element.Poster === "N/A" ? NA : element.Poster} type={element.Type} year={element.Year} title={element.Title}
+              <SearchItem imdbID={element.imdbID} poster={element.Poster === "N/A" ? NA : element.Poster} type={element.Type} year={element.Year} title={element.Title}
               />
             </div>
           })}

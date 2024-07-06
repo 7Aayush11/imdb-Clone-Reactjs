@@ -3,40 +3,46 @@ import SearchContext from '../Context/SearchContext'
 import star from "./star.png"
 import award from "./award.png"
 import NA from "./NA.png"
+import { useNavigate } from 'react-router-dom'
 
 const FullMovieDetail = () => {
 
-    const {searchContext} = SearchContext;
-    const {genre, item, type} = useContext(searchContext)
-    
+    const { searchContext } = SearchContext;
+    const { genre, item, type } = useContext(searchContext)
+    const navigate = useNavigate();
+
     return (
         <div>
-            <div className="container text-center" style={{ marginTop: "65px", display: 'flex', flexDirection: "row", justifyContent: 'flex-start' }}>
+            <button type="button" className="btn btn-danger" style={{marginTop: "35px", amrginLeft: "27px"}} onClick={() => { navigate(-1) }}>Back</button>
+            <div className="container text-center" style={{display: 'flex', flexDirection: "row", justifyContent: 'flex-start' }}>
                 <div style={{ margin: "15px" }}>
-                    <img src={item.Poster==="N/A"?NA:item.Poster} alt="" style={{ height: "390px" }} />
+                    <img src={item.Poster === "N/A" ? NA : item.Poster} alt="" style={{ height: "390px" }} />
                 </div>
                 <div style={{ margin: "15px", textAlign: "start", color: "#dfd8d8" }}>
                     <div className='container' style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
                         {/* Title */}
                         <h3 className='mx-1'>{item.Title} - </h3>
                         {/* Genre */}
-                        {genre.map((index)=>(
+                        {genre.map((index) => (
                             <span key={index} className="badge rounded-pill text-bg-info mx-1">{index}</span>
                         ))}
                     </div>
 
                     <div className="container mx-1" style={{ display: 'flex', flexDirection: 'column' }}>
                         {/* Date, type, time */}
-                        {type} . {item.Year} . {item.Runtime} {item.totalSeasons?`. ${item.totalSeasons} Seasons`:null} 
+                        {type} . {item.Year} . {item.Runtime} {item.totalSeasons ? `. ${item.totalSeasons} Seasons` : null}
+                        {/* Languages */}
+                        <strong>{item.Language}</strong>
                         {/* Plot */}
                         <p className='my-2'>{item.Plot}</p>
                         {/* Rating*/}
-                        <div className="row my-2" >
-                            <img src={star} alt="Rating" style={{maxWidth: "48px", maxHeight: "24px"}}/>{item.imdbRating}/10 . {item.imdbVotes} votes
+                        <div className="row my-2" style={{ color: item.imdbRating >= "7" ? 'green' : item.imdbRating >= 3.8 ? "yellow" : "red" }}>
+                            <img src={star} alt="Rating" style={{ maxWidth: "48px", maxHeight: "24px" }} />
+                            {item.imdbRating}/10 . {item.imdbVotes} votes
                         </div>
                         {/* Awards */}
                         <div className="row mb-3" >
-                            <img src={award} alt="Rating" style={{maxWidth: "48px", maxHeight: "24px"}}/>{item.Awards}
+                            <img src={award} alt="Rating" style={{ maxWidth: "48px", maxHeight: "24px" }} />{item.Awards}
                         </div>
                         {/* Actor, Director, Writer */}
                         <div className="row">
@@ -66,7 +72,6 @@ const FullMovieDetail = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
