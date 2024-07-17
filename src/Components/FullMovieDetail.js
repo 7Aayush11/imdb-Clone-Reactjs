@@ -8,13 +8,20 @@ import { useNavigate } from 'react-router-dom'
 const FullMovieDetail = () => {
 
     const { searchContext } = SearchContext;
-    const { genre, item, type } = useContext(searchContext)
+    const { genre, item, type, addItem } = useContext(searchContext)
     const navigate = useNavigate();
 
+    const handleSave = async (id, poster)=>{
+        await addItem(id, poster)
+    }
     return (
         <div>
-            <button type="button" className="btn btn-danger" style={{marginTop: "35px", amrginLeft: "27px"}} onClick={() => { navigate(-1) }}>Back</button>
-            <div className="container text-center" style={{display: 'flex', flexDirection: "row", justifyContent: 'flex-start' }}>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <button type="button" className="btn btn-danger" style={{ marginTop: "35px", marginLeft: "27px" }} onClick={() => { navigate(-1) }}>Back</button>
+                {/* Show an alert when it is saved and when it is already saved */}
+                <button type="button" className="btn btn-success" style={{ marginTop: "35px", marginRight: "27px" }} onClick={()=>handleSave(item.imdbID, item.Poster)}>Save</button>
+            </div>
+            <div className="container text-center" style={{ display: 'flex', flexDirection: "row", justifyContent: 'flex-start' }}>
                 <div style={{ margin: "15px" }}>
                     <img src={item.Poster === "N/A" ? NA : item.Poster} alt="" style={{ height: "390px" }} />
                 </div>
