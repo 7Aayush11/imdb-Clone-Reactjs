@@ -8,11 +8,12 @@ import { useNavigate } from 'react-router-dom'
 const FullMovieDetail = () => {
 
     const { searchContext } = SearchContext;
-    const { genre, item, type, addItem } = useContext(searchContext)
+    const { genre, item, type, addItem, showAlert } = useContext(searchContext)
     const navigate = useNavigate();
 
     const handleSave = async (id, poster)=>{
         await addItem(id, poster)
+        showAlert('Item saved in watchlater', 'success')
     }
     return (
         <div>

@@ -17,6 +17,17 @@ const SearchState = (props) => {
     const host = "http://localhost:4000"
     const itemsInitial = []
     const [saveitems, setSaveItems] = useState(itemsInitial)
+    const [alert, setAlert] = useState(null)
+
+    const showAlert = (message, type)=>{
+        setAlert({
+            msg: message,
+            type: type
+        })
+        setTimeout(() => {
+          setAlert(null);
+        }, 1600);
+      }
 
     // Get user Data
     const getUser = async () => {
@@ -25,7 +36,7 @@ const SearchState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5MmI0OWVjMTgzZTc4NTA4MDI1ODFiIn0sImlhdCI6MTcyMDg5MDUyNn0.lOkWXLr85SBmOIW5f3PwfzmowvqJuw4D7DBCICuB4g0'
+                "auth-token": localStorage.getItem('token')
             }
         });
         const json = await response.json()
@@ -38,7 +49,7 @@ const SearchState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5MmI0OWVjMTgzZTc4NTA4MDI1ODFiIn0sImlhdCI6MTcyMDg5MDUyNn0.lOkWXLr85SBmOIW5f3PwfzmowvqJuw4D7DBCICuB4g0'
+                "auth-token": localStorage.getItem('token')
             }
         });
         const json = await response.json()
@@ -52,7 +63,7 @@ const SearchState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5MmI0OWVjMTgzZTc4NTA4MDI1ODFiIn0sImlhdCI6MTcyMDg5MDUyNn0.lOkWXLr85SBmOIW5f3PwfzmowvqJuw4D7DBCICuB4g0'
+                "auth-token": localStorage.getItem('token')
             },
             body: JSON.stringify({ imdbId, poster })
         });
@@ -67,7 +78,7 @@ const SearchState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                "auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5MmI0OWVjMTgzZTc4NTA4MDI1ODFiIn0sImlhdCI6MTcyMDg5MDUyNn0.lOkWXLr85SBmOIW5f3PwfzmowvqJuw4D7DBCICuB4g0'
+                "auth-token": localStorage.getItem('token')
             }
         });
         setSaveItems(saveitems.filter((item) => item._id !== id))
@@ -98,7 +109,7 @@ const SearchState = (props) => {
     }
 
     return (
-        <searchContext.Provider value={{ handleSearch, ele, handleTitle, item, genre, type, addItem, getSaveItems, saveitems, getUser, removeItem}}>
+        <searchContext.Provider value={{ handleSearch, ele, handleTitle, item, genre, type, addItem, getSaveItems, saveitems, getUser, removeItem, showAlert, setAlert, alert}}>
             {props.children}
         </searchContext.Provider>
     )

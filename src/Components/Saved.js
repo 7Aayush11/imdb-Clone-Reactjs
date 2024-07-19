@@ -4,7 +4,7 @@ import SearchContext from '../Context/SearchContext'
 const Saved = () => {
 
   const { searchContext } = SearchContext
-  const { getUser, getSaveItems, saveitems, removeItem } = useContext(searchContext)
+  const { getUser, getSaveItems, saveitems, removeItem, showAlert } = useContext(searchContext)
 
   useEffect(() => {
     getUser()
@@ -13,6 +13,7 @@ const Saved = () => {
 
   const handleRemove = (id)=>{
     removeItem(id)
+    showAlert('Item removed from watchlater', 'success')
   } 
 
   console.log(saveitems);

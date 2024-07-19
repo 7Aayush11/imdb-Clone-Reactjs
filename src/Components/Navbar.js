@@ -40,6 +40,10 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/Saved">Saved</Link>
                             </li>
+                            {/* Switch the position of login */}
+                            <li className="nav-item">
+                                <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
+                            </li>
                             <li className="nav-item">
                                 <Link className="nav-link" aria-disabled="true">NA</Link>
                             </li>
