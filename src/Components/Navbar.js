@@ -1,28 +1,35 @@
 import React, { useContext, useState } from 'react'
 import SearchContext from '../Context/SearchContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
 
     const { searchContext } = SearchContext
-    const { handleSearch } = useContext(searchContext)
+    const { setEle } = useContext(searchContext)
     const [type, setType] = useState(null)
     const [title, setTitle] = useState(null)
+    const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault();
         const title = document.getElementById("title").value;
         setTitle(title)
-        handleSearch([title, type]);
+        setEle([title, type]);
+        navigate(`/search/${title}`);
     };
 
-    const handleMovie = ()=>{
-        setType("movie")
-        handleSearch([title, 'movie']);
+    const handleLogout=()=>{
+        localStorage.removeItem("token")
+        navigate("/")
     }
 
-    const handleSeries = ()=>{
+    const handleMovie = () => {
+        setType("movie")
+        setEle([title, type]);
+    }
+
+    const handleSeries = () => {
         setType("series")
-        handleSearch([title, 'series']);
+        setEle([title, type]);
     }
     return (
         <>
@@ -39,10 +46,6 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/Saved">Saved</Link>
-                            </li>
-                            {/* Switch the position of login */}
-                            <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" aria-disabled="true">NA</Link>
@@ -63,6 +66,13 @@ const Navbar = () => {
                         <input className="me-2" placeholder="Search" aria-label="Search" id='title' />
                         <button className="btn btn-outline-success" onClick={handleSubmit}>
                             Search</button>
+                        {
+                            localStorage.getItem('token') ?
+                                <button type='button' className="btn btn-danger mx-2" onClick={handleLogout}>Logout</button> : <>
+                                    <button type="button" className="btn btn-success mx-2" onClick={() => { navigate('/login') }}>Login</button>
+                                    <button type="button" className="btn btn-success mr-2" onClick={() => { navigate('/signup') }}>Signup</button>
+                                </>
+                        }
                     </div>
                 </div>
             </nav>

@@ -38,7 +38,7 @@ const SignUp = () => {
                         //Save the auth token and redirect
                         localStorage.setItem('token', val.authtoken)
                         navigate("/")
-                        showAlert(`Hello ${name} have your notes in one place`, "success")
+                        showAlert(`Hello ${name} enjoy your stay using Amdb`, "success")
                     }
                     else {
                         //Show alert

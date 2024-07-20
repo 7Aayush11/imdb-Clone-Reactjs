@@ -1,5 +1,10 @@
-# IMDB CLONE APP
-This app is created using reactjs and Omdb api to fetch data. The interface is quite simple. First comes the home page where we get a similar feature like most movies/series streaming apps to swipe for some recommendations As the API doesn't provide with much options to fetch we had to make the feature using a static list. Then comes the second feature thatnis searching as the API provides us with vast result on searching we get to see all the available movies/series/game from the searched title. Also it provides with filter of searching based on type(movie/series/episode).
+# Imdb Clone
+This is a clone of the IMDB website. It is a single page application built using React. It uses the OMDB API to fetch movie data. The elements are created by me, or used from web sources that are later edited as per the requirements. The application is not perfect like imdb as the API provides with basic data fetching and searching functionality. There is a Signup and Login option too that allows a user to save there intrested items in watch later which is managed in both client and server side too. The UI is simple to use below are some screenshots of the application as it is not about to deployed as of now.
 
-# Future work
-In future we could add a actual recommendation system that works on AI and with some more home page carousel.
+# Screenshots
+
+![Homepage](./Screenshots/Homepage.PNG)
+![Fullpagedetail](./Screenshots/Fullpagedetail.PNG)
+![Searched](./Screenshots/Searched.PNG)
+![Signup](./Screenshots/Signup.PNG)
+![Watchlater](./Screenshots/Saved.PNG)

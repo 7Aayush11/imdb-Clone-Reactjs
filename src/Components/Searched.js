@@ -21,15 +21,12 @@ const Searched = () => {
   const updateContent = async () => {
     setPage(1)
     setLoading(true)
-    console.log(ele);
     if (ele[1] === null) {
       const url = `https://www.omdbapi.com/?s=${ele[0]}&page=1&apikey=${apikey}`;
       let data = await fetch(url);
       let parsedData = await data.json()
-      console.log(parsedData);
       setItem(parsedData)
       setTotalResults(parsedData.totalResults)
-      // setResponse(parsedData.Response)
       setLoading(false)
     }
     else {

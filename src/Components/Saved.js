@@ -1,26 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import SearchContext from '../Context/SearchContext'
+import Spinner from './Spinner'
 
 const Saved = () => {
 
   const { searchContext } = SearchContext
-  const { getUser, getSaveItems, saveitems, removeItem, showAlert } = useContext(searchContext)
+  const { getUser, getSaveItems, saveitems, removeItem, showAlert, loading } = useContext(searchContext)
 
   useEffect(() => {
     getUser()
     getSaveItems()
+    // eslint-disable-next-line
   }, []);
 
   const handleRemove = (id)=>{
     removeItem(id)
-    showAlert('Item removed from watchlater', 'success')
+    showAlert('Item removed from watchlater', 'warning')
   } 
 
-  console.log(saveitems);
   return (
     <div className="saved row" style={{ color: 'white', textAlign: 'center'}}>
       <h1>Saved</h1>
-
+      {loading && <Spinner />}
       <div className='container mx-2' >
         {saveitems.length === 0 && "No items Available"}
       </div>
